@@ -29,7 +29,9 @@ export default function GoalInput({ onSubmit }) {
       </View>
       <Modal visible={isVisible} animationType="slide">
         <View style={{justifyContent: "center", flex: 1}}>
-          <Image style={styles.image} source={require('../assets/images/goal.png')} />
+          <Image style={styles.image}
+                 source={require('../assets/images/goal.png')}
+          />
           <View style={{padding: 20, alignItems: "center", justifyContent: "center", }}>
             <Text>Add your new Goal</Text>
           </View>
