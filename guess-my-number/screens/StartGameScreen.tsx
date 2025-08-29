@@ -1,15 +1,17 @@
 ﻿import { useState } from 'react';
-import { Alert, StyleSheet, TextInput, View, Text } from 'react-native';
+import { Alert, StyleSheet, TextInput, View } from 'react-native';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Colors from '../utils/constants/colors';
 import { useGameContext } from '../providers/GameProvider';
 import Title from '../components/ui/Title';
 import Card from '../components/ui/CardComponent';
 import AppText from '../components/ui/AppText';
+import useDevice from '../utils/constants/useDevice';
 
 export default function StartGameScreen() {
   const { handlePickNumber } = useGameContext();
   const [inputNumber, setInputNumber] = useState('');
+  const { size, orientation } = useDevice();
   const handleInputChange = (input: string) => {
     setInputNumber(input.trim());
   }
@@ -30,36 +32,40 @@ export default function StartGameScreen() {
   }
 
   return (
-    <View style={styles.rootContainer}>
+    <View style={[styles.rootContainer, {marginTop: orientation == 'portrait' ? 100 : 40,}]}>
       <Title>Guess My Number</Title>
-      <Card>
-        <AppText style={styles.inputLabel}>Enter a number</AppText>
-        <TextInput
-          style={styles.input} maxLength={2}
-          keyboardType={'number-pad'}
-          autoCapitalize={"none"}
-          autoCorrect={false}
-          value={inputNumber}
-          onChangeText={handleInputChange}
-        />
-        <View style={styles.buttonsContainer}>
-          <View style={styles.buttonContainer}>
-            <PrimaryButton onPress={handleResetInput}>Reset</PrimaryButton>
+      <View style={[styles.cardContainer, {alignItems: orientation ==  'landscape' ? 'center' : 'stretch'}]}>
+        <Card>
+          <AppText style={styles.inputLabel}>Enter a number</AppText>
+          <TextInput
+            style={styles.input} maxLength={2}
+            keyboardType={'number-pad'}
+            autoCapitalize={"none"}
+            autoCorrect={false}
+            value={inputNumber}
+            onChangeText={handleInputChange}
+          />
+          <View style={styles.buttonsContainer}>
+            <View style={styles.buttonContainer}>
+              <PrimaryButton onPress={handleResetInput}>Reset</PrimaryButton>
+            </View>
+            <View style={styles.buttonContainer}>
+              <PrimaryButton onPress={handleConfirmInput}>Confirm</PrimaryButton>
+            </View>
           </View>
-          <View style={styles.buttonContainer}>
-            <PrimaryButton onPress={handleConfirmInput}>Confirm</PrimaryButton>
-          </View>
-        </View>
-      </Card>
+        </Card>
+      </View>
     </View>
 
   )
 }
 const styles = StyleSheet.create({
   rootContainer: {
-    marginTop: 100,
     marginHorizontal: 24,
     flex: 1,
+  },
+  cardContainer: {
+    marginHorizontal: 24,
   },
   inputLabel: {
     textAlign: 'center',

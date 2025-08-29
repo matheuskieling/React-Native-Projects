@@ -2,6 +2,7 @@
 import React from 'react';
 import Colors from '../../utils/constants/colors';
 import AppText from './AppText';
+import useDevice from '../../utils/constants/useDevice';
 interface PrimaryButtonProps {
   children: React.ReactNode;
   onPress?: () => void;
@@ -14,7 +15,7 @@ interface PrimaryButtonProps {
   };
 }
 export default function PrimaryButton({ children, onPress, customStyle } : PrimaryButtonProps) {
-
+  const { size, orientation } = useDevice();
   return (
     <View style={[styles.outerContainer, {flex: customStyle?.flex ?? 0}]}>
       <Pressable
@@ -25,7 +26,7 @@ export default function PrimaryButton({ children, onPress, customStyle } : Prima
         android_ripple={{color: Colors.accent400}}
         onPress={onPress}
       >
-        <AppText style={[styles.title, {fontSize: customStyle?.fontSize ?? 16, color: customStyle?.color ?? 'white'}]}>
+        <AppText style={[styles.title, {fontSize: customStyle?.fontSize ?? (size == 'large' ? 16 : 12), color: customStyle?.color ?? 'white'}]}>
           {children}
         </AppText>
       </Pressable>

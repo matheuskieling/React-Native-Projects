@@ -1,6 +1,7 @@
 ﻿import { StyleSheet, Text } from 'react-native';
 import Colors from '../../utils/constants/colors';
 import AppText from './AppText';
+import deviceSize from '../../utils/constants/useDevice';
 
 interface TitleProps {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ export default function Title(props: TitleProps) {
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
-    fontSize: 24,
+    fontSize: deviceSize == 'large' ? 24 : 20,
     color: 'white',
   }
 })

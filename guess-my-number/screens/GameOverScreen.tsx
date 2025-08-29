@@ -1,18 +1,19 @@
-import { View, Text, StyleSheet, Image, ImageResizeMode } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { useGameContext } from '../providers/GameProvider';
 import AppText from '../components/ui/AppText';
 import Title from '../components/ui/Title';
 import Colors from '../utils/constants/colors';
-import App from '../App';
 import PrimaryButton from '../components/ui/PrimaryButton';
+import useDevice from '../utils/constants/useDevice';
 
 export default function GameOverScreen() {
+  const { size, orientation } = useDevice();
   const { pickedNumber, rounds, handleResetGame } = useGameContext();
   return  (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <Title>GAME OVER</Title>
-        <View style={styles.imageContainer}>
+        <View style={[styles.imageContainer, {width: size == 'large' ? 300 : 200}]}>
           <Image style={styles.image}  source={require('../assets/images/success.png')} />
         </View>
         <AppText style={styles.text}>
@@ -39,19 +40,16 @@ const styles = StyleSheet.create({
     marginVertical: 'auto',
   },
   innerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1
   },
   imageContainer: {
     overflow: 'hidden',
-    width: 300,
-    height: 300,
+    aspectRatio: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 'auto',
     marginVertical: 36,
-    borderRadius: 150,
+    borderRadius: '50%',
     borderWidth: 3,
     borderColor: Colors.primary700,
   },

@@ -9,7 +9,7 @@ import Card from '../components/ui/CardComponent';
 import { Ionicons } from '@expo/vector-icons';
 import AppText from '../components/ui/AppText';
 import GuessItem from '../components/game/GuessItem';
-
+import useDevice from '../utils/constants/useDevice';
 export default function GameScreen() {
   const {
     pickedNumber,
@@ -23,6 +23,7 @@ export default function GameScreen() {
   const [max, setMax] = useState<number>(99);
   const [min, setMin] =  useState<number>(1);
   const [currentNumber, setCurrentNumber] = useState<number | null>(null);
+  const { size, orientation } = useDevice();
 
   const handleSetMin = () => {
     if (currentNumber === null) return;
@@ -81,16 +82,16 @@ export default function GameScreen() {
             <Title>Opponent's guess</Title>
             <NumberContainer>{currentNumber}</NumberContainer>
             <Card>
-              <AppText style={styles.feedbackText}>Higher or lower?</AppText>
+              <AppText style={[styles.feedbackText, {fontSize: size == 'large' ? 16 : 12}]}>Higher or lower?</AppText>
               <View style={styles.buttonContainer}>
                 <View style={styles.button}>
                   <PrimaryButton customStyle={{color: Colors.accent400}} onPress={handleSetMax}>
-                    <Ionicons name="remove" size={24} />
+                    <Ionicons name="remove" size={size == 'large' ? 24 : 14} />
                   </PrimaryButton>
                 </View>
                 <View style={styles.button}>
                   <PrimaryButton customStyle={{color: Colors.accent400}} onPress={handleSetMin}>
-                    <Ionicons name="add" size={24} />
+                    <Ionicons name="add" size={size == 'large' ? 24 : 14} />
                   </PrimaryButton>
                 </View>
               </View>
@@ -130,7 +131,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
   feedbackText: {
-    fontSize: 16,
     color: Colors.accent400,
     marginBottom: 16,
     textAlign: 'center'
