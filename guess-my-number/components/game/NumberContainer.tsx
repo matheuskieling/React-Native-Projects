@@ -10,8 +10,16 @@ interface NumberContainerProps {
 export default function NumberContainer(props: NumberContainerProps) {
   const { size, orientation } = useDevice();
   const { children } = props;
-  return <View style={[styles.container, {width: size == 'large' ? 80 : 60, marginVertical: size == 'large' ? 24: 12}]}>
-    <AppText bold={true} style={[styles.text, {fontSize: size == 'large' ? 36 : 24}]} >{children}</AppText>
+  const getMarginBottom = () => {
+    if (orientation == 'landscape') {
+      return 10;
+    } else {
+      return size !== 'small' ? 24: 12
+    }
+
+  }
+  return <View style={[styles.container, {width: 80, marginBottom: getMarginBottom() }]}>
+    <AppText bold={true} style={[styles.text, {fontSize: size !== 'small' ? 36 : 24}]} >{children}</AppText>
   </View>
 }
 

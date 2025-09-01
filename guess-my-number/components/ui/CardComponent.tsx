@@ -8,8 +8,15 @@ interface CardProps {
 
 export default function Card({ children }: CardProps) {
   const { size, orientation } = useDevice();
+  const getMarginTop = () => {
+    if (orientation == 'landscape') {
+      return 6;
+    } else {
+      return size !== 'small' ? 32 : 16
+    }
+  }
   return (
-    <View style={[styles.container, {marginTop: size == 'large' ? 32 : 16, minWidth: orientation == 'landscape' ? 400 : 0 , maxWidth: orientation == 'landscape' ? 400 : 9999}]}>
+    <View style={[styles.container, {marginTop: getMarginTop(), minWidth: orientation == 'landscape' ? 400 : 0 , maxWidth: orientation == 'landscape' ? 400 : 9999}]}>
       {children}
     </View>
   )
