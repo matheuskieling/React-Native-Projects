@@ -1,11 +1,4 @@
-﻿import { Dimensions, PixelRatio, useWindowDimensions } from 'react-native';
-import { useState } from 'react';
-
-// const width = Dimensions.get('window').width;
-// const width = PixelRatio.getPixelSizeForLayoutSize(width);
-//
-// const height = Dimensions.get('window').height;
-// const height = PixelRatio.getPixelSizeForLayoutSize(height);
+﻿import { PixelRatio, useWindowDimensions } from 'react-native';
 
 export type DeviceSize = 'small' | 'medium' | 'large';
 export type DeviceOrientation = 'portrait' | 'landscape';
@@ -13,8 +6,8 @@ export type DeviceOrientation = 'portrait' | 'landscape';
 export default function useDevice(){
   const { width, height } = useWindowDimensions();
   const getSize = (): DeviceSize => {
-    if (width <= 540) return 'small'
-    if (width <= 720) return 'medium'
+    if (width <= 360) return 'small'
+    if (width <= 400) return 'medium'
     return 'large';
   }
   const getOrientation = (): DeviceOrientation => {
