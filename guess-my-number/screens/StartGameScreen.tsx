@@ -1,5 +1,5 @@
 ﻿import { useState } from 'react';
-import { Alert, StyleSheet, TextInput, View } from 'react-native';
+import { Alert, StyleSheet, TextInput, View, KeyboardAvoidingView, ScrollView } from 'react-native';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Colors from '../utils/constants/colors';
 import { useGameContext } from '../providers/GameProvider';
@@ -32,34 +32,41 @@ export default function StartGameScreen() {
   }
 
   return (
-    <View style={[styles.rootContainer, {marginTop: orientation == 'portrait' ? 100 : 40,}]}>
-      <Title>Guess My Number</Title>
-      <View style={[styles.cardContainer, {alignItems: orientation ==  'landscape' ? 'center' : 'stretch'}]}>
-        <Card>
-          <AppText style={styles.inputLabel}>Enter a number</AppText>
-          <TextInput
-            style={styles.input} maxLength={2}
-            keyboardType={'number-pad'}
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            value={inputNumber}
-            onChangeText={handleInputChange}
-          />
-          <View style={styles.buttonsContainer}>
-            <View style={styles.buttonContainer}>
-              <PrimaryButton onPress={handleResetInput}>Reset</PrimaryButton>
-            </View>
-            <View style={styles.buttonContainer}>
-              <PrimaryButton onPress={handleConfirmInput}>Confirm</PrimaryButton>
-            </View>
+    <ScrollView style={styles.screen}>
+      <KeyboardAvoidingView style={styles.screen} behavior="position">
+        <View style={[styles.rootContainer, {marginTop: orientation == 'portrait' ? 100 : 20,}]}>
+          <Title>Guess My Number</Title>
+          <View style={[styles.cardContainer, {alignItems: orientation ==  'landscape' ? 'center' : 'stretch'}]}>
+            <Card>
+              <AppText style={styles.inputLabel}>Enter a number</AppText>
+              <TextInput
+                style={styles.input} maxLength={2}
+                keyboardType={'number-pad'}
+                autoCapitalize={"none"}
+                autoCorrect={false}
+                value={inputNumber}
+                onChangeText={handleInputChange}
+              />
+              <View style={styles.buttonsContainer}>
+                <View style={styles.buttonContainer}>
+                  <PrimaryButton onPress={handleResetInput}>Reset</PrimaryButton>
+                </View>
+                <View style={styles.buttonContainer}>
+                  <PrimaryButton onPress={handleConfirmInput}>Confirm</PrimaryButton>
+                </View>
+              </View>
+            </Card>
           </View>
-        </Card>
-      </View>
-    </View>
+        </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
 
   )
 }
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   rootContainer: {
     marginHorizontal: 24,
     flex: 1,

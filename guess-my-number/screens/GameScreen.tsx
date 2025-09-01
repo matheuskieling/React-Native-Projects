@@ -78,24 +78,26 @@ export default function GameScreen() {
           </View>
         }
         {currentNumber != null &&
-          <View style={{flex: 1, marginBottom: 26}}>
-            <Title>Opponent's guess</Title>
-            <NumberContainer>{currentNumber}</NumberContainer>
-            <Card>
-              <AppText style={[styles.feedbackText, {fontSize: size == 'large' ? 16 : 12}]}>Higher or lower?</AppText>
-              <View style={styles.buttonContainer}>
-                <View style={styles.button}>
-                  <PrimaryButton customStyle={{color: Colors.accent400}} onPress={handleSetMax}>
-                    <Ionicons name="remove" size={size == 'large' ? 24 : 14} />
-                  </PrimaryButton>
+          <View style={[{flex: 1, marginBottom: 26}, orientation == 'landscape' && {flexDirection: 'row', gap: 10}]}>
+            <View>
+              <Title>Opponent's guess</Title>
+              <NumberContainer>{currentNumber}</NumberContainer>
+              <Card>
+                <AppText style={[styles.feedbackText, {fontSize: size !== 'small' ? 16 : 12}]}>Higher or lower?</AppText>
+                <View style={styles.buttonContainer}>
+                  <View style={styles.button}>
+                    <PrimaryButton customStyle={{color: Colors.accent400}} onPress={handleSetMax}>
+                      <Ionicons name="remove" size={size !== 'small' ? 24 : 14} />
+                    </PrimaryButton>
+                  </View>
+                  <View style={styles.button}>
+                    <PrimaryButton customStyle={{color: Colors.accent400}} onPress={handleSetMin}>
+                      <Ionicons name="add" size={size !== 'small' ? 24 : 14} />
+                    </PrimaryButton>
+                  </View>
                 </View>
-                <View style={styles.button}>
-                  <PrimaryButton customStyle={{color: Colors.accent400}} onPress={handleSetMin}>
-                    <Ionicons name="add" size={size == 'large' ? 24 : 14} />
-                  </PrimaryButton>
-                </View>
-              </View>
-            </Card>
+              </Card>
+            </View>
             <FlatList
               data={guesses}
               renderItem={(itemData) => <GuessItem guess={itemData.item} guessIndex={itemData.index} />}

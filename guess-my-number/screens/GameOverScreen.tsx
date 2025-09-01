@@ -9,11 +9,24 @@ import useDevice from '../utils/constants/useDevice';
 export default function GameOverScreen() {
   const { size, orientation } = useDevice();
   const { pickedNumber, rounds, handleResetGame } = useGameContext();
+  const getWidth = () => {
+    if (orientation === 'landscape') {
+      return 150;
+    }
+    return size !== 'small' ? 300 : 200
+  }
+
+  const getImageContainerMarginVertical = () => {
+    if (orientation === 'landscape') {
+      return 20;
+    }
+    return 36;
+  }
   return  (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <Title>GAME OVER</Title>
-        <View style={[styles.imageContainer, {width: size == 'large' ? 300 : 200}]}>
+        <View style={[styles.imageContainer, {width: getWidth() , marginVertical: getImageContainerMarginVertical()}]}>
           <Image style={styles.image}  source={require('../assets/images/success.png')} />
         </View>
         <AppText style={styles.text}>
@@ -32,6 +45,10 @@ export default function GameOverScreen() {
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: 'red'
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -48,7 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 'auto',
-    marginVertical: 36,
+
     borderRadius: '50%',
     borderWidth: 3,
     borderColor: Colors.primary700,
