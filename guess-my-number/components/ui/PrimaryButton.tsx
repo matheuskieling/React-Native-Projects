@@ -26,7 +26,7 @@ export default function PrimaryButton({ children, onPress, customStyle } : Prima
         android_ripple={{color: Colors.accent400}}
         onPress={onPress}
       >
-        <AppText style={[styles.title, {fontSize: customStyle?.fontSize ?? (size == 'large' ? 16 : 12), color: customStyle?.color ?? 'white'}]}>
+        <AppText style={[styles.title, {fontSize: customStyle?.fontSize ?? (size !== 'small' ? 16 : 12), color: customStyle?.color ?? 'white'}]}>
           {children}
         </AppText>
       </Pressable>

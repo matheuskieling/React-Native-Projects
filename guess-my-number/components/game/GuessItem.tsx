@@ -13,9 +13,9 @@ export default function GuessItem({ guess, guessIndex }:  GuessItemProps) {
   const { size, orientation } = useDevice();
 
     return (
-      <View style={[styles.container, {padding: size == 'large' ? 10 : 6}]}>
-        <AppText style={[styles.text, {fontSize: size == 'large' ? 16 : 12}]}>#{rounds - guessIndex}</AppText>
-        <AppText style={[styles.text, {fontSize: size == 'large' ? 16 : 12}]}>Opponent's Guess: {guess}</AppText>
+      <View style={[styles.container, {padding: size !== 'small' ? 10 : 6}]}>
+        <AppText style={[styles.text, {fontSize: size !== 'small' ? 16 : 12}]}>#{rounds - guessIndex}</AppText>
+        <AppText style={[styles.text, {fontSize: size !== 'small' ? 16 : 12}]}>Opponent's Guess: {guess}</AppText>
       </View>
     )
 }
